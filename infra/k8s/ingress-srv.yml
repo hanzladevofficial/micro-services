@@ -1,0 +1,47 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-srv
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  ingressClassName: nginx
+  rules:
+  - host: posts.com
+    http:
+      paths:
+      # Posts creation
+      - pathType: Prefix
+        path: "/posts/create"
+        backend:
+          service:
+            name: posts-srv
+            port:
+              number: 4000
+
+      # Comments routes - regex match
+      - pathType: ImplementationSpecific
+        path: "/posts/[^/]+/comments"
+        backend:
+          service:
+            name: comments-srv
+            port:
+              number: 4001
+
+      # All other /posts routes go to query service
+      - pathType: Prefix
+        path: "/posts"
+        backend:
+          service:
+            name: query-srv
+            port:
+              number: 4002
+
+      # Root path
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: client-srv
+            port:
+              number: 3000
