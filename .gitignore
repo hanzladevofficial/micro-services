@@ -1,6 +1,5 @@
 # Dependencies
 node_modules/
-/node_modules
 
 # Environment variables
 .env
@@ -28,11 +27,6 @@ Thumbs.db
 *.swp
 *.swo
 *~
-
-# Docker
-Dockerfile*
-docker-compose*.yml
-*.dockerignore
 
 # Testing
 coverage/
