@@ -503,6 +503,52 @@ micro-services-module-1/
 
 ---
 
+## 🔧 Development with Skaffold
+
+### What is Skaffold?
+
+Skaffold is a command-line tool that facilitates continuous development for Kubernetes applications. It automates the workflow for building, pushing, and deploying your application.
+
+**Benefits**:
+- **Automated Rebuilds**: Detects code changes and rebuilds images automatically
+- **Hot Reload**: Syncs file changes without full rebuilds (for faster development)
+- **Simplified Workflow**: Single command to run entire microservices application
+- **No Manual Docker Commands**: Handles building and deploying all services
+
+### Skaffold Configuration (`skaffold.yml`)
+
+The project includes a Skaffold configuration that:
+- Builds all 6 service Docker images locally
+- Deploys all Kubernetes manifests from `infra/k8s/`
+- Watches for file changes and auto-syncs:
+  - Client service: `src/**/*.js` files
+  - Backend services: `*.js` files
+- Skips pushing to Docker Hub (uses local images)
+
+### Using Skaffold
+
+**Start Development Mode**:
+```bash
+skaffold dev
+```
+This command will:
+1. Build all Docker images
+2. Deploy to Kubernetes
+3. Stream logs from all services
+4. Watch for code changes and auto-reload
+
+**Run Once (No Watch)**:
+```bash
+skaffold run
+```
+
+**Delete Deployments**:
+```bash
+skaffold delete
+```
+
+---
+
 ## 🚦 Getting Started
 
 ### Prerequisites
@@ -510,8 +556,38 @@ micro-services-module-1/
 - Kubernetes cluster (Minikube, Docker Desktop, or cloud provider)
 - kubectl CLI tool
 - Ingress NGINX controller installed
+- Skaffold CLI tool (optional, for automated workflow)
 
-### Deployment Steps
+### Option 1: Using Skaffold (Recommended)
+
+1. **Install Skaffold**:
+```bash
+# macOS
+brew install skaffold
+
+# Linux
+curl -Lo skaffold https://storage.googleapis.com/skaffold/releases/latest/skaffold-linux-amd64
+sudo install skaffold /usr/local/bin/
+
+# Windows (using Chocolatey)
+choco install skaffold
+```
+
+2. **Configure Hosts File**:
+Add to `/etc/hosts` (Linux/Mac) or `C:\Windows\System32\drivers\etc\hosts` (Windows):
+```
+127.0.0.1 posts.com
+```
+
+3. **Start Application**:
+```bash
+skaffold dev
+```
+
+4. **Access Application**:
+Open browser and navigate to `http://posts.com`
+
+### Option 2: Manual Deployment
 
 1. **Build and Push Docker Images**:
 ```bash

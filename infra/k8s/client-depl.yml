@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: client
-          imagePullPolicy: Always
+          imagePullPolicy: Never
           image: hanzladev/micro-service-client
           ports:
             - containerPort: 3000

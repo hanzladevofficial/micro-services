@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: event-bus
-          imagePullPolicy: Always
+          imagePullPolicy: Never
           image: hanzladev/micro-service-event-bus
           ports:
             - containerPort: 4005

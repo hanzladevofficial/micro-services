@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: query
-          imagePullPolicy: Always
+          imagePullPolicy: Never
           image: hanzladev/micro-service-query
           ports:
             - containerPort: 4002
